@@ -16,7 +16,7 @@
 }
 
 .box {
-  background-color: #192043;
+  background-color: #0a1929;
   box-shadow: 0px 0px 30px #000000;
   height: 65vh;
   width: inherit;
@@ -24,16 +24,28 @@
   font-weight: bold;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-content: flex-start;
   overflow: scroll;
+  border-radius: 10px;
 }
 
 
 .filterBox {
-  width: 25%;
-  height: 25%;
-  border: 3px solid rgb(238, 0, 255);
+  width: 15%;
+  max-height: 70%;
+  border: .5px solid #1e4976;
+  background-color: #0a1929;
+  box-shadow: 0px 0px 30px #000000;
+  border-radius: 10px;
+  color: #FCFFE7;
+  font-weight: bold;
+  margin: 1%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  padding-top: 1%;
+  overflow-y: scroll;
 }
 
 
@@ -46,6 +58,8 @@
   height: 35%;
   margin: 0.8%;
   box-shadow: 0px 0px 10px black;
+  border: .5px solid #1e4976;
+  background-color: #001e3c;
 }
 
 
