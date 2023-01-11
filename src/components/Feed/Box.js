@@ -3,9 +3,11 @@ import styles from './feed.module.css'
 import fakeData from '../../fakedata/fakeData';
 import Card from './Card'
 import FilterBox from './FilterBox'
+import fakeCollections from '../../fakedata/fakeCollections'
 
 export default function Box({}) {
   const [buys, setBuys] = useState(fakeData);
+  const [currentCollections, setCurrentCollections] = useState(fakeCollections)
   const [currentFilter, setCurrentFilter] = useState('all');
 
   const handleChange = (e) => {
@@ -13,18 +15,40 @@ export default function Box({}) {
   }
 
 
+  useEffect(() => {
+
+  }, [currentFilter])
+
+
   return (<>
     <div className={styles.filterBox}>
-      <FilterBox currentFilter={currentFilter} handleChange={handleChange} />
+      <FilterBox currentFilter={currentFilter} handleChange={handleChange}  currentCollections={currentCollections}/>
     </div>
-    <div className={styles.box}>
+    <div className={styles.cardbox}>
       {
+        currentFilter === 'all' &&
         buys.map((item, index) => {
           return (
             <Card
               key={index}
-              image={item.Picture}
-              price={item.Price}
+              image={item.picture}
+              price={item.price}
+              collection={item.collection}
+            />
+          )
+        })
+      }
+      {
+        currentFilter!== 'all' &&
+        buys.filter((item) => {
+          return item.collection === currentFilter;
+        }).map((item, index) => {
+          return (
+            <Card
+              key={index}
+              image={item.picture}
+              price={item.price}
+              collection={item.collection}
             />
           )
         })

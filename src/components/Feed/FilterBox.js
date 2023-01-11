@@ -17,8 +17,14 @@ export default function FilterBox ({ currentCollections, currentFilter, handleCh
         value={currentFilter}
         onChange={(e) => handleChange(e)}
       >
-        <FormControlLabel value="all" control={<Radio />} label="All Collections" />
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="all" control={<Radio />} label="All Collections" />
+        {
+          currentCollections.map((collection, index) => {
+            return (
+              <FormControlLabel key={index} value={collection} control={<Radio />} label={collection} />
+            )
+          })
+        }
       </RadioGroup>
     </FormControl>
     </>
