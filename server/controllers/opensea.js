@@ -29,14 +29,14 @@ exports.addCollection = async (req, res, next) => {
     const findUser = await User.findOne({address: req.body.address});
     if (!findUser) throw Error
 
-    await osSDK.api.get(`/collection/${req.body.slug}`);
+    let nftCollection = await osSDK.api.get(`/collection/${req.body.slug}`);
     let addCollection = await User.updateOne({
       address: req.body.address
     }, {
-      $push : { collections: req.body.slug}
+      $push : { collections: nftCollection.collection.name}
     })
     if (addCollection.modifiedCount === 1) {
-      return res.status(201).json({ message: `Succesfully added ${req.body.slug} to list`})
+      return res.status(201).json({ message: `Succesfully added ${nftCollection.collection.name} to list`})
     }
   } catch (err) {
     return res.status(404).json({ message: 'Collection not added' });
@@ -45,7 +45,7 @@ exports.addCollection = async (req, res, next) => {
 
 exports.getCollections = async (req, res, next) => {
   try {
-    const findUser = await User.findOne({address: req.body.address});
+    const findUser = await User.findOne({address: JSON.parse(req.query['0']).address});
     if (!findUser) throw Error
 
     return res.status(200).json(findUser.collections)

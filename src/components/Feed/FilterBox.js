@@ -6,11 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 export default function FilterBox ({ currentCollections, currentFilter, handleChange}) {
-
+  console.log(currentCollections)
   return (
     <>
     <FormControl>
-      <FormLabel id="demo-controlled-radio-buttons-group" style={{color: '#FCFFE7', fontWeight: 'bold' }}>Filter By Collection</FormLabel>
+      <FormLabel id="demo-controlled-radio-buttons-group" style={{color: '#FCFFE7', fontWeight: 'bold', marginLeft: '10%' }}>Filter By Collection</FormLabel>
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
@@ -19,7 +19,7 @@ export default function FilterBox ({ currentCollections, currentFilter, handleCh
       >
                 <FormControlLabel value="all" control={<Radio />} label="All Collections" />
         {
-          currentCollections.map((collection, index) => {
+          currentCollections.length && currentCollections.map((collection, index) => {
             return (
               <FormControlLabel key={index} value={collection} control={<Radio />} label={collection} />
             )
