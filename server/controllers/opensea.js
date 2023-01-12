@@ -55,10 +55,15 @@ exports.addCollection = async (req, res, next) => {
 
     let nftCollection = await osSDK.api.get(`/collection/${req.body.slug}`);
 
+    let data = {
+      slug: nftCollection.collection.slug,
+      name: nftCollection.collection.name
+    }
+
     let addCollection = await User.updateOne({
       address: req.body.address
     }, {
-      $push : { collections: nftCollection.collection.name}
+      $push : { collections: data}
     })
 
     if (addCollection.modifiedCount === 1) {
@@ -95,7 +100,6 @@ exports.getCollections = async (req, res, next) => {
   try {
     const findUser = await User.findOne({address: JSON.parse(req.query['0']).address});
     if (!findUser) throw Error
-
     return res.status(200).json(findUser.collections)
   } catch (e) {
     return res.status(500).json({ message: 'Invalid request'})

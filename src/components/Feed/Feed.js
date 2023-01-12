@@ -44,16 +44,19 @@ export default function Feed() {
   }
 
   const getBuys = () => {
+    let arr = [];
     axios
      .get('http://localhost:3001/api/opensea/buys')
      .then((response) => {
-
+      for (let i = 0; i < currentCollections.length; i++) {
+        let filtered = response.data.filter((sale) => {
+          return sale.slug === currentCollections[i]
+        })
+        arr.push(filtered);
+      }
+      console.log(arr);
      })
      .catch((err) => console.log(err))
-    let arr = [];
-    for (let i = 0; i < currentCollections.length; i++) {
-      let filtered = currentCollections
-    }
   }
   const handleNewCollection = (e, inputRef) => {
     e.preventDefault();
