@@ -1,16 +1,14 @@
 .boxcontainer {
-  display: flex;
   height: 75vh;
   margin: 50px;
-  flex-flow: column wrap;
-  border: 3px solid orange
+  /* border: 3px solid orange */
 }
 
 .searchcontainer {
   display: flex;
   flex-direction: row;
   width: 100%;
-  border: 3px solid yellow;
+  /* border: 3px solid yellow; */
   justify-content: center;
   padding-bottom: 1%;
 }
@@ -27,6 +25,7 @@
   justify-content: center;
   overflow: scroll;
   border-radius: 10px;
+  border: .5px solid #1e4976;
 }
 
 
@@ -39,12 +38,34 @@
   border-radius: 10px;
   color: #FCFFE7;
   font-weight: bold;
-  margin: 1%;
+  margin: 2% 2% 1% 1%;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   padding-top: 1%;
   overflow-y: scroll;
+}
+
+
+.statbox {
+  width: 15%;
+  max-height: 55vh;
+  border: .5px solid #1e4976;
+  background-color: #0a1929;
+  box-shadow: 0px 0px 30px #000000;
+  border-radius: 10px;
+  color: #FCFFE7;
+  font-weight: bold;
+  margin: 2% 1% 1% 2%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 1%;
+  gap:10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  word-break: break-all;
 }
 
 

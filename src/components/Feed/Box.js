@@ -1,23 +1,21 @@
 import { useState, useEffect } from 'react';
 import styles from './feed.module.css'
 import fakeData from '../../fakedata/fakeData';
-import Card from './Card'
-import FilterBox from './FilterBox'
-import fakeCollections from '../../fakedata/fakeCollections'
+import Card from './Card';
+import FilterBox from './FilterBox';
+import fakeCollections from '../../fakedata/fakeCollections';
+import StatBox from './StatBox';
+import fakeVolume from '../../fakedata/fakeVolume';
 
 export default function Box({}) {
   const [buys, setBuys] = useState(fakeData);
   const [currentCollections, setCurrentCollections] = useState(fakeCollections)
   const [currentFilter, setCurrentFilter] = useState('all');
+  const [currentVolumes, setCurrentVolumes] = useState(fakeVolume);
 
   const handleChange = (e) => {
     setCurrentFilter(e.target.value)
   }
-
-
-  useEffect(() => {
-
-  }, [currentFilter])
 
 
   return (<>
@@ -54,8 +52,8 @@ export default function Box({}) {
         })
       }
     </div>
-    <div className={styles.filterBox}>
-      STATS BOX
+    <div className={styles.statbox}>
+        <StatBox  fakeVolume={currentVolumes}/>
     </div>
     </>
   )
