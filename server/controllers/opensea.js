@@ -129,7 +129,6 @@ exports.getVolume = async (req, res, next) => {
     let arr = [];
     for (let i = 0; i < main.collections.length; i++) {
       let volumeData = await osSDK.api.get(`/collection/${main.collections[i]}`);
-      console.log(volumeData.collection.name)
       let data = {
         name: volumeData.collection.name,
         onedaysales: volumeData.collection.stats.one_day_volume,

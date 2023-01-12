@@ -65,7 +65,11 @@ export default function Feed() {
   useInterval(() => {
     getBuys()
   }, 2000)
-  
+
+  useInterval(() => {
+    getVolume()
+  }, 15000)
+
   const getBuys = () => {
     let arr = [];
     axios
@@ -82,6 +86,16 @@ export default function Feed() {
       if (arr.flat(Infinity).length > 0 && arr.flat(Infinity).length > buys.length) {
         setBuys(arr.flat(Infinity))
       }
+     })
+     .catch((err) => console.log(err))
+  }
+
+  const getVolume = () => {
+    let arr = [];
+    axios
+     .get('http://localhost:3001/api/opensea/volume')
+     .then((response) => {
+      setCurrentVolumes(response.data)
      })
      .catch((err) => console.log(err))
   }

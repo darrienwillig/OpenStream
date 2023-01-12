@@ -60,12 +60,18 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: space-around;
   padding-top: 1%;
-  gap:10px;
   overflow-y: scroll;
   overflow-x: hidden;
   word-break: break-all;
+}
+
+.statBoxItemContainer {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  gap:10px;
+  margin-left: 14%
 }
 
 
