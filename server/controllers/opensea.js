@@ -102,3 +102,14 @@ exports.getCollections = async (req, res, next) => {
   }
 
 }
+
+exports.getBuys = async (req, res, next) => {
+  try {
+    let main = await Main.findOne({address: 'main'});
+    if (!main) throw Error
+
+    return res.status(200).json(main.sales)
+  } catch (err) {
+    return res.status(500).json({ message: 'Invalid request'})
+  }
+}
