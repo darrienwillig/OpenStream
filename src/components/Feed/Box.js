@@ -58,7 +58,7 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
     </div>
     <div className={styles.statbox}>
       <div className={styles.statBoxItemContainer}>
-        <StatBox  fakeVolume={currentVolumes}/>
+        <StatBox  currentVolume={currentVolumes}/>
       </div>
     </div>
     </>

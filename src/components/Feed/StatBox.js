@@ -5,13 +5,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-export default function StatBox ({fakeVolume}) {
+export default function StatBox ({currentVolume}) {
 
   return (
     <>
     {
-      fakeVolume &&
-        fakeVolume.map((item, index) => {
+      currentVolume &&
+        currentVolume.map((item, index) => {
           return (
             <List key={index} sx={{border: '.5px solid #1e4976', width: '85%'}}>
             <ListItem disablePadding sx={{paddingLeft: '9%'}} >

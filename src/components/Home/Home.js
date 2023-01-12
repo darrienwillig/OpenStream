@@ -6,9 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 
 export default function Home() {
-  const [authenticated, setAuthenticated] = useState(false);
   const { connector: activeConnector, isConnected } = useAccount()
-  const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
 
   return (
   <>

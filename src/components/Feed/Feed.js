@@ -14,7 +14,7 @@ export default function Feed() {
   const [buys, setBuys] = useState([]);
   const [currentCollections, setCurrentCollections] = useState([])
   const [currentFilter, setCurrentFilter] = useState('all');
-  const [currentVolumes, setCurrentVolumes] = useState(fakeVolume);
+  const [currentVolumes, setCurrentVolumes] = useState([]);
   const [newCollection, setNewCollection] = useState(false)
 
   const handleChange = (e) => {
@@ -127,6 +127,7 @@ export default function Feed() {
 
   useEffect(() => {
    getCollections();
+   getVolume();
   }, [])
 
   useEffect(() => {

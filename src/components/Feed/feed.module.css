@@ -71,7 +71,8 @@
   display: flex;
   flex-flow: column wrap;
   gap:10px;
-  margin-left: 14%
+  margin-left: 14%;
+  padding-bottom: 10%;
 }
 
 

@@ -3,9 +3,6 @@ import styles from './feed.module.css'
 
 export default function Search({ handleNewCollection }) {
   const inputRef = useRef(null)
-  const [query, setQuery] = useState('')
-  const [results, setResults] = useState([])
-  const [loading, setLoading] = useState(false)
 
 
   return (
