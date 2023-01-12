@@ -24,14 +24,21 @@ exports.createUser = async (req, res, next) => {
   }
 }
 
-// exports.addCollection = async (req, res, next) => {
-//   try {
-//     await osSDK.api.get(`/collection/${req.body.slug}`);
-//     let addCollection = await User.create({
-//       address: req.body.address,
+exports.addCollection = async (req, res, next) => {
+  try {
+    const findUser = await User.findOne({address: req.body.address});
+    if (!findUser) throw Error
 
-//     })
-//   } catch (err) {
-//     return res.status(404).json({ message: 'Collection not added' });
-//   }
-// }
+    await osSDK.api.get(`/collection/${req.body.slug}`);
+    let addCollection = await User.updateOne({
+      address: req.body.address
+    }, {
+      $push : { collections: req.body.slug}
+    })
+    if (addCollection.modifiedCount === 1) {
+      return res.status(201).json({ message: `Succesfully added ${req.body.slug} to list`})
+    }
+  } catch (err) {
+    return res.status(404).json({ message: 'Collection not added' });
+  }
+}

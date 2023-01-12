@@ -4,7 +4,7 @@ const router = require('express').Router();
 
 
 router
-//  .post('/add', controller.addCollection)
+ .post('/add', controller.addCollection)
  .post('/create', controller.createUser)
 //  .get('/collections', controller.getCollections)
 
