@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAccount, useConnect } from 'wagmi'
 import { Navigate } from 'react-router-dom';
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -37,27 +37,54 @@ export default function Feed() {
     axios(config)
       .then(res => {
         setCurrentCollections(res.data)
+        getInitBuys(res.data)
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
+  const getInitBuys = (collections) => {
+    let arr = [];
+    axios
+     .get('http://localhost:3001/api/opensea/buys')
+     .then((response) => {
+      for (let i = 0; i < collections.length; i++) {
+        let filtered = response.data.filter((sale) => {
+          return sale.slug === collections[i].slug
+        })
+        if (filtered.length > 0) {
+          arr.push(filtered);
+        }
+      }
+        setBuys(arr.flat(Infinity))
+     })
+     .catch((err) => console.log(err))
+  }
+
+  useInterval(() => {
+    getBuys()
+  }, 2000)
   const getBuys = () => {
     let arr = [];
     axios
      .get('http://localhost:3001/api/opensea/buys')
      .then((response) => {
-      for (let i = 0; i < currentCollections.length; i++) {
+      for (let i = 0; i < (currentCollections.length); i++) {
         let filtered = response.data.filter((sale) => {
-          return sale.slug === currentCollections[i]
+          return sale.slug === currentCollections[i].slug
         })
-        arr.push(filtered);
+        if (filtered.length > 0) {
+          arr.push(filtered);
+        }
       }
-      console.log(arr);
+      if (arr.flat(Infinity).length > 0 && arr.flat(Infinity).length > buys.length) {
+        setBuys(arr.flat(Infinity))
+      }
      })
      .catch((err) => console.log(err))
   }
+
   const handleNewCollection = (e, inputRef) => {
     e.preventDefault();
     let data = JSON.stringify({
@@ -84,7 +111,7 @@ export default function Feed() {
   }
 
   useEffect(() => {
-    getCollections();
+   getCollections();
   }, [])
 
   useEffect(() => {
@@ -94,12 +121,12 @@ export default function Feed() {
   }, [newCollection])
 
 
-  useEffect(() => {
-    if (!isConnected) return;
-      if (!window.localStorage.getItem('created')) {
-        createUser();
-      }
-  }, [isConnected])
+  // useEffect(() => {
+  //   if (!isConnected) return;
+  //     if (!window.localStorage.getItem('created')) {
+  //       createUser();
+  //     }
+  // }, [isConnected])
 
   const createUser = () => {
     let data = {
@@ -137,4 +164,24 @@ export default function Feed() {
       <><Navigate to="/" /></>
     )
   }
+}
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest function.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }

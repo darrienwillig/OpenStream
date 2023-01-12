@@ -5,27 +5,29 @@ const osClient = require('../util/opensea').client;
 const osSDK = require('../util/opensea').SDK;
 
 
-//  (async () => {
-//   const getMain = await Main.findOne({address: 'main'});
-//   for (let i = 0; i < getMain.collections.length; i++) {
-//     osClient.onItemSold(`${getMain.collections[i]}`, async (event) => {
-//       let data = {
-//         slug: event.payload.collection.slug,
-//         price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
-//         imgUrl: event.payload.item.metadata.image_url
-//       }
-//       let addToMain = await Main.updateOne({
-//         address: 'main',
-//       }, {
-//         $push : { collections: data.slug, sales: data}
-//       })
+ (async () => {
+  const getMain = await Main.findOne({address: 'main'});
+  for (let i = 0; i < getMain.collections.length; i++) {
+    osClient.onItemSold(`${getMain.collections[i]}`, async (event) => {
+      let data = {
+        slug: event.payload.collection.slug,
+        price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
+        imgUrl: event.payload.item.metadata.image_url,
+        time: event.payload.event_timestamp,
+        name: event.payload.item.metadata.name,
+      }
+      let addToMain = await Main.updateOne({
+        address: 'main',
+      }, {
+        $push : {  sales: data}
+      })
 
-//       if(addToMain.modifiedCount === 1) {
-//         console.log('Added new sale to main document')
-//       }
-//     })
-//   }
-// })()
+      if(addToMain.modifiedCount === 1) {
+        console.log('Added new sale to main document')
+      }
+    })
+  }
+})()
 
 
 
@@ -77,7 +79,9 @@ exports.addCollection = async (req, res, next) => {
         let data = {
           slug: event.payload.collection.slug,
           price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
-          imgUrl: event.payload.item.metadata.image_url
+          imgUrl: event.payload.item.metadata.image_url,
+          time: event.payload.event_timestamp,
+          name: event.payload.item.metadata.name,
         }
         let addToMain = await Main.updateOne({
           address: 'main',

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAccount } from 'wagmi'
 import styles from './feed.module.css'
 import fakeData from '../../fakedata/fakeData';
@@ -9,7 +9,10 @@ import StatBox from './StatBox';
 
 export default function Box({buys, currentCollections, currentFilter, currentVolumes, handleChange, handleNewCollection}) {
 
-
+  if (buys.length > 300) {
+    buys.splice(300)
+  }
+  buys.reverse()
   return (<>
     <div className={styles.filterBox}>
       <FilterBox currentFilter={currentFilter} handleChange={(e) => {handleChange(e)}}  currentCollections={currentCollections}/>
@@ -21,9 +24,10 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
           return (
             <Card
               key={index}
-              image={item.picture}
+              image={item.imgUrl}
               price={item.price}
-              collection={item.collection}
+              collection={item.name}
+              timestamp={item.time}
             />
           )
         })
@@ -31,14 +35,15 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
       {
         currentFilter!== 'all' &&
         buys.filter((item) => {
-          return item.collection === currentFilter;
+          return item.slug === currentFilter;
         }).map((item, index) => {
           return (
             <Card
               key={index}
-              image={item.picture}
+              image={item.imgUrl}
               price={item.price}
-              collection={item.collection}
+              collection={item.name}
+              timestamp={item.time}
             />
           )
         })
@@ -50,3 +55,4 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
     </>
   )
 }
+

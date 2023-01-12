@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 export default function FilterBox ({ currentCollections, currentFilter, handleChange}) {
-  console.log(currentCollections)
   return (
     <>
     <FormControl>
@@ -21,7 +20,7 @@ export default function FilterBox ({ currentCollections, currentFilter, handleCh
         {
           currentCollections.length > 0 && currentCollections.map((collection, index) => {
             return (
-              <FormControlLabel key={index} value={collection.name} control={<Radio />} label={collection.name} />
+              <FormControlLabel key={index} value={collection.slug} control={<Radio />} label={collection.name} />
             )
           })
         }
