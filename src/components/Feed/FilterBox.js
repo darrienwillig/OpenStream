@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 export default function FilterBox ({ currentCollections, currentFilter, handleChange}) {
-  console.log(currentCollections)
+
   return (
     <>
     <FormControl>
