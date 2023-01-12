@@ -121,3 +121,25 @@ exports.getBuys = async (req, res, next) => {
     return res.status(500).json({ message: 'Invalid request'})
   }
 }
+
+exports.getVolume = async (req, res, next) => {
+  try {
+    let main = await Main.findOne({address: 'main'});
+    if (!main) throw Error
+    let arr = [];
+    for (let i = 0; i < main.collections.length; i++) {
+      let volumeData = await osSDK.api.get(`/collection/${main.collections[i]}`);
+      console.log(volumeData.collection.name)
+      let data = {
+        name: volumeData.collection.name,
+        onedaysales: volumeData.collection.stats.one_day_volume,
+        totalsales: volumeData.collection.stats.total_volume,
+        floor: volumeData.collection.stats.floor_price
+      }
+      arr.push(data);
+    }
+    return res.status(200).json(arr);
+  } catch (e) {
+    return res.status(500).json({ message: 'Invalid request'})
+  }
+}

@@ -7,6 +7,7 @@ router
   .post('/add', controller.addCollection)
   .post('/create', controller.createUser)
   .get('/collections', controller.getCollections)
-  .get('/buys', controller.getBuys);
+  .get('/buys', controller.getBuys)
+  .get('/volume', controller.getVolume);
 
 module.exports = router;
