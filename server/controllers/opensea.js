@@ -42,3 +42,15 @@ exports.addCollection = async (req, res, next) => {
     return res.status(404).json({ message: 'Collection not added' });
   }
 }
+
+exports.getCollections = async (req, res, next) => {
+  try {
+    const findUser = await User.findOne({address: req.body.address});
+    if (!findUser) throw Error
+
+    return res.status(200).json(findUser.collections)
+  } catch (e) {
+    return res.status(500).json({ message: 'Invalid request'})
+  }
+
+}
