@@ -10,9 +10,8 @@ import StatBox from './StatBox';
 export default function Box({buys, currentCollections, currentFilter, currentVolumes, handleChange, handleNewCollection}) {
 
   if (buys.length > 300) {
-    buys.splice(300)
+    buys.slice(300)
   }
-  buys.reverse()
   return (<>
     <div className={styles.filterBox}>
       <FilterBox currentFilter={currentFilter} handleChange={(e) => {handleChange(e)}}  currentCollections={currentCollections}/>
@@ -20,7 +19,11 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
     <div className={styles.cardbox}>
       {
         currentFilter === 'all' &&
-        buys.map((item, index) => {
+        buys.sort((x, y) => {
+          let xDate = new Date(x.time);
+          let yDate = new Date(y.time);
+          return yDate - xDate
+        }).map((item, index) => {
           return (
             <Card
               key={index}
@@ -36,6 +39,10 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
         currentFilter!== 'all' &&
         buys.filter((item) => {
           return item.slug === currentFilter;
+        }).sort((x, y) => {
+          let xDate = new Date(x.time);
+          let yDate = new Date(y.time);
+          return yDate - xDate
         }).map((item, index) => {
           return (
             <Card

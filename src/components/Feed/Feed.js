@@ -65,6 +65,7 @@ export default function Feed() {
   useInterval(() => {
     getBuys()
   }, 2000)
+  
   const getBuys = () => {
     let arr = [];
     axios
