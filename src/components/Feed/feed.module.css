@@ -76,7 +76,7 @@
 }
 
 
-.card {
+#card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
@@ -87,6 +87,10 @@
   box-shadow: 0px 0px 10px black;
   border: .5px solid #1e4976;
   background-color: #001e3c;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px 0 white;
 }
 
 .detailContainer {
@@ -111,6 +115,7 @@
 .cardtime {
   font-weight: bold;
   font-size: x-small;
+  color: #EB455F
 }
 
 
@@ -159,5 +164,5 @@
   display: flex;
   justify-content: center;
   margin: 50px;
-  padding-left: 5%;
+  padding-left: 3%;
 }

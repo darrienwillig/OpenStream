@@ -11,13 +11,7 @@ TimeAgo.addDefaultLocale(en);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Auth0Provider
-    domain="dev-nsi5l470stqfyef5.us.auth0.com"
-    clientId="1HyHH4IOatFFoGe3kS7FN9jJ8rGp4vdk"
-    redirectUri='http://localhost:3000/feed'
-  >
     <App />
-    </Auth0Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

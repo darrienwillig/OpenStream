@@ -23,19 +23,19 @@ export default function StatBox ({currentVolume}) {
             </ListItem>
             <ListItem disablePadding sx={{paddingLeft: '14%'}} >
               <ListItemIcon  style={{color: 'white', minWidth: '0'}}>
-                <SignalCellularAltIcon  />
+                <SignalCellularAltIcon sx={{color: '#EB455F'}} />
               </ListItemIcon>
               <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.onedaysales.toLocaleString('en-us', {maximumFractionDigits: 1})} Ξ`} />
             </ListItem>
             <ListItem  sx={{paddingLeft: '14%'}}>
               <ListItemIcon style={{color: 'white', minWidth: '0'}}>
-                <SignalCellularAltIcon />
+                <SignalCellularAltIcon sx={{color: '#EB455F'}}/>
               </ListItemIcon>
               <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.totalsales.toLocaleString('en-us', {maximumFractionDigits: 1})} Ξ`} />
             </ListItem>
             <ListItem  sx={{paddingLeft: '14%'}}>
               <ListItemIcon style={{color: 'white', minWidth: '0'}}>
-                <MonetizationOnIcon />
+                <MonetizationOnIcon sx={{color: '#EB455F'}}/>
               </ListItemIcon>
               <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={` ${item.floor.toLocaleString('en-us', {maximumFractionDigits: 2})} Ξ`} />
             </ListItem>
@@ -43,7 +43,7 @@ export default function StatBox ({currentVolume}) {
           )
         })
         :   <Box sx={{ display: 'flex', width: '85%', height: '50vh', justifyContent: 'center', alignItems: 'center' }}>
-                  <CircularProgress />
+                  <CircularProgress sx={{color: '#EB455F'}}/>
         </Box>
     }
     </>

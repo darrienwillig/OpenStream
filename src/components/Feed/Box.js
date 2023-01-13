@@ -8,6 +8,26 @@ import StatBox from './StatBox';
 
 
 export default function Box({buys, currentCollections, currentFilter, currentVolumes, handleChange, handleNewCollection}) {
+  const [oldCards, setOldCards] = useState(buys);
+  const [total, setTotal] = useState(0);
+
+  const getDifference = () => {
+    if (window.localStorage.getItem('buys')) {
+    let totalDiff = buys.length - oldCards.length;
+    console.log(totalDiff)
+    setTotal(totalDiff);
+    }
+    setOldCards(buys);
+    window.localStorage.setItem('buys', buys);
+  }
+
+  useEffect(() => {
+    getDifference();
+  }, [buys]);
+
+  useEffect(() => {
+    setTotal(0)
+  }, [currentFilter])
 
   if (buys.length > 300) {
     buys.slice(300)
@@ -24,6 +44,20 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
           let yDate = new Date(y.time);
           return yDate - xDate
         }).map((item, index) => {
+          if (index < total) {
+            for (let i = 0; i< total; i++) {
+              return (
+                <Card
+                newcard={true}
+                key={index}
+                image={item.imgUrl}
+                price={item.price}
+                collection={item.name}
+                timestamp={item.time}
+              />
+              )
+            }
+          }
           return (
             <Card
               key={index}
