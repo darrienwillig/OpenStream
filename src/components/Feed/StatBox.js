@@ -4,13 +4,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import { useState } from 'react'
 
 export default function StatBox ({currentVolume}) {
+  const [isLoaded, setLoaded] = useState(false)
 
   return (
     <>
     {
-      currentVolume &&
+      currentVolume.length > 0 ?
         currentVolume.map((item, index) => {
           return (
             <List key={index} sx={{border: '.5px solid #1e4976', width: '85%'}}>
@@ -38,6 +42,9 @@ export default function StatBox ({currentVolume}) {
           </List>
           )
         })
+        :   <Box sx={{ display: 'flex', width: '85%', height: '50vh', justifyContent: 'center', alignItems: 'center' }}>
+                  <CircularProgress />
+        </Box>
     }
     </>
   )
