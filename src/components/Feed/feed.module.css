@@ -1,6 +1,5 @@
 .boxcontainer {
   height: 75vh;
-  margin: 50px;
   /* border: 3px solid orange */
 }
 
@@ -11,12 +10,21 @@
   /* border: 3px solid yellow; */
   justify-content: center;
   padding-bottom: 1%;
+  padding-top: 2%;
 }
 
+.streambox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+
 .cardbox {
-  background-color: #0a1929;
+  background-color: transparent;
   box-shadow: 0px 0px 30px #000000;
-  height: 65vh;
+  height: 100%;
   width: inherit;
   color: #FCFFE7;
   font-weight: bold;
@@ -31,14 +39,14 @@
 
 .filterBox {
   width: 15%;
-  max-height: 70%;
+  max-height: 100%;
   border: .5px solid #1e4976;
-  background-color: #0a1929;
+  background-color: #3900217e;
   box-shadow: 0px 0px 30px #000000;
   border-radius: 10px;
-  color: #FCFFE7;
+  color: white;
   font-weight: bold;
-  margin: 2% 2% 1% 1%;
+  margin: 0% 2% 0% 1%;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -49,14 +57,14 @@
 
 .statbox {
   width: 15%;
-  max-height: 55vh;
+  max-height: 100%;
   border: .5px solid #1e4976;
-  background-color: #0a1929;
+  background-color: #0f313520;
   box-shadow: 0px 0px 30px #000000;
   border-radius: 10px;
-  color: #FCFFE7;
+  color: #fdfdfd;
   font-weight: bold;
-  margin: 2% 1% 1% 2%;
+  margin: 0% 1% 0% 2%;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -85,12 +93,12 @@
   height: 35%;
   margin: 0.8%;
   box-shadow: 0px 0px 10px black;
-  border: .5px solid #1e4976;
-  background-color: #001e3c;
+  /* border: .5px solid #f9ffff; */
+  background-color: transparent;
 }
 
-.card:hover {
-  box-shadow: 0 4px 8px 0 white;
+#card:hover {
+  box-shadow: 0 4px 8px 3px #EB455F;
 }
 
 .detailContainer {
@@ -115,16 +123,11 @@
 .cardtime {
   font-weight: bold;
   font-size: x-small;
-  color: #EB455F
+  color: #ffffff
 }
 
 
 
-.streambox {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
 
 
 
@@ -162,7 +165,81 @@
 
 .connectbtn {
   display: flex;
-  justify-content: center;
-  margin: 50px;
+  justify-content: right;
   padding-left: 3%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-top: 1%;
+}
+
+#modal {
+  background-color: transparent;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  box-shadow: black 3px 1px 5px;
+  z-index: 999;
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row;
+}
+
+#modalBox {
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  background-color: transparent;
+  width: 15%;
+  height: 35%;
+  box-shadow: 0px 0px 30px black;
+  /* border: .5px solid #f9ffff; */
+  /* position: absolute;
+  top: 25%;
+  left: 35%; */
+  margin: none;
+}
+
+#buttonContainer {
+  display: flex;
+  flex-flow: column wrap;
+  top: 50%;
+  width: 15%;
+  height: 35%;
+  margin-left: 2%;
+  gap: 3%;
+}
+
+.buttons {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  background-color: transparent;
+  width: 100%;
+  height: 25%;
+  margin: 0.8%;
+  box-shadow: 0px 0px 20px black;
+  /* border: .5px solid #f9ffff; */
+  background-color: transparent;
+  color: white;
+  font-size: x-large;
+  text-align: center;
+  justify-content: center;
+}
+
+
+@media screen and (max-width: 1280px) {
+  #card {
+    width: 30%;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  #card {
+    width: 40%;
+  }
 }

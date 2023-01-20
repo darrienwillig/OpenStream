@@ -45,9 +45,20 @@ table {
 	border-spacing: 0;
 }
 
-html,body {
-  background-color: #2B3467;
-  margin: 0px;
+html {
+  box-sizing: border-box;
+	background-image:url('bg6.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin: 0px;
   padding: 0px;
   color: #FCFFE7;
+	height: 100vh;
+}
+
+body {
+  /* background-color: #2B3467; */
+
+
 }

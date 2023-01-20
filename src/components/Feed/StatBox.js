@@ -25,19 +25,19 @@ export default function StatBox ({currentVolume}) {
               <ListItemIcon  style={{color: 'white', minWidth: '0'}}>
                 <SignalCellularAltIcon sx={{color: '#EB455F'}} />
               </ListItemIcon>
-              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.onedaysales.toLocaleString('en-us', {maximumFractionDigits: 1})} Ξ`} />
+              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.onedaysales.toLocaleString('en-us', {maximumFractionDigits: 4})} Ξ`} />
             </ListItem>
             <ListItem  sx={{paddingLeft: '14%'}}>
               <ListItemIcon style={{color: 'white', minWidth: '0'}}>
                 <SignalCellularAltIcon sx={{color: '#EB455F'}}/>
               </ListItemIcon>
-              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.totalsales.toLocaleString('en-us', {maximumFractionDigits: 1})} Ξ`} />
+              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={`${item.totalsales.toLocaleString('en-us', {maximumFractionDigits: 4})} Ξ`} />
             </ListItem>
             <ListItem  sx={{paddingLeft: '14%'}}>
               <ListItemIcon style={{color: 'white', minWidth: '0'}}>
                 <MonetizationOnIcon sx={{color: '#EB455F'}}/>
               </ListItemIcon>
-              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={` ${item.floor.toLocaleString('en-us', {maximumFractionDigits: 2})} Ξ`} />
+              <ListItemText  primaryTypographyProps={{fontSize: 'medium'}} primary={` ${item.floor.toLocaleString('en-us', {maximumFractionDigits: 4})} Ξ`} />
             </ListItem>
           </List>
           )

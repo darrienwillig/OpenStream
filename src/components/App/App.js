@@ -5,7 +5,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import {configureChains, createClient, WagmiConfig, useAccount, useConnect } from "wagmi";
 import {mainnet} from 'wagmi/chains'
-import { alchemyProvider } from "wagmi/providers/alchemy";
+import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 import merge from 'lodash.merge';
 import {
@@ -22,7 +22,7 @@ const myTheme = merge(lightTheme(), {
 
 const { chains, provider } = configureChains(
   [mainnet],
-  [alchemyProvider({ alchemyId: process.env.REACT_APP_RPC }), publicProvider()]
+  [infuraProvider({ apiKey: process.env.REACT_APP_RPC }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

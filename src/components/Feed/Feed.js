@@ -37,6 +37,7 @@ export default function Feed() {
     axios(config)
       .then(res => {
         setCurrentCollections(res.data)
+        window.localStorage.setItem('currentCollections', res.data)
         getInitBuys(res.data)
       })
       .catch((err) => {
@@ -57,7 +58,14 @@ export default function Feed() {
           arr.push(filtered);
         }
       }
-        setBuys(arr.flat(Infinity))
+      let test = arr.flat(Infinity)
+      test.sort((x, y) => {
+        let xDate = new Date(x.time);
+        let yDate = new Date(y.time);
+        return yDate - xDate
+      })
+        setBuys(test.slice(0, 500))
+
      })
      .catch((err) => console.log(err))
   }
@@ -68,7 +76,7 @@ export default function Feed() {
 
   useInterval(() => {
     getVolume()
-  }, 15000)
+  }, 7000)
 
   const getBuys = () => {
     let arr = [];
@@ -83,8 +91,15 @@ export default function Feed() {
           arr.push(filtered);
         }
       }
-      if (arr.flat(Infinity).length > 0 && arr.flat(Infinity).length > buys.length) {
-        setBuys(arr.flat(Infinity))
+
+      let test = arr.flat(Infinity)
+      test.sort((x, y) => {
+        let xDate = new Date(x.time);
+        let yDate = new Date(y.time);
+        return yDate - xDate
+      })
+      if (test[0].hash !== buys[0].hash) {
+        setBuys(test.slice(0, 500))
       }
      })
      .catch((err) => console.log(err))
@@ -126,6 +141,8 @@ export default function Feed() {
   }
 
   useEffect(() => {
+    if (window.localStorage.getItem('buys')) return;
+    console.log('hi')
    getCollections();
    getVolume();
   }, [])

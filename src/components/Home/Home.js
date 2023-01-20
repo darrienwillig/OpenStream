@@ -12,7 +12,7 @@ export default function Home() {
   return (
   <>
     <div className={styles.logo}>
-      <img src="logo.png" alt="logo" width={400} height={400} />
+      <img src="newlogo.png" alt="logo" width={400} height={400} />
     </div>
     <div className={styles.container} id ='buttonshake'>
       <ConnectButton/>

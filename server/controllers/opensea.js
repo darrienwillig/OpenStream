@@ -4,6 +4,12 @@ const db = require('../util/database');
 const osClient = require('../util/opensea').client;
 const osSDK = require('../util/opensea').SDK;
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 
  (async () => {
   const getMain = await Main.findOne({address: 'main'});
@@ -14,7 +20,10 @@ const osSDK = require('../util/opensea').SDK;
         price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
         imgUrl: event.payload.item.metadata.image_url,
         time: event.payload.event_timestamp,
-        name: event.payload.item.metadata.name,
+        name: event.payload.item.metadata.name || event.payload.collection.slug,
+        toAddress: event.payload.taker.address,
+        itemLink: event.payload.item.permalink,
+        hash: event.payload.transaction.hash
       }
       let addToMain = await Main.updateOne({
         address: 'main',
@@ -76,12 +85,16 @@ exports.addCollection = async (req, res, next) => {
       })
 
       osClient.onItemSold(`${nftCollection.collection.slug}`, async (event) => {
+        console.log(event)
         let data = {
           slug: event.payload.collection.slug,
           price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
           imgUrl: event.payload.item.metadata.image_url,
           time: event.payload.event_timestamp,
-          name: event.payload.item.metadata.name,
+          name: event.payload.item.metadata.name || event.payload.collection.slug,
+          toAddress: event.payload.taker.address,
+          itemLink: event.payload.item.permalink,
+          hash: event.payload.transaction.hash
         }
         let addToMain = await Main.updateOne({
           address: 'main',
@@ -116,6 +129,9 @@ exports.getBuys = async (req, res, next) => {
     let main = await Main.findOne({address: 'main'});
     if (!main) throw Error
 
+
+
+
     return res.status(200).json(main.sales)
   } catch (err) {
     return res.status(500).json({ message: 'Invalid request'})
@@ -139,6 +155,6 @@ exports.getVolume = async (req, res, next) => {
     }
     return res.status(200).json(arr);
   } catch (e) {
-    return res.status(500).json({ message: 'Invalid request'})
+    return res.status(500).json({ message: e})
   }
 }
