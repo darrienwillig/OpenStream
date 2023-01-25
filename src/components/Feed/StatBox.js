@@ -10,6 +10,7 @@ import { useState } from 'react'
 
 export default function StatBox ({currentVolume}) {
   const [isLoaded, setLoaded] = useState(false)
+  currentVolume = currentVolume ? currentVolume : JSON.parse(window.localStorage.getItem('currentVolumes'))
 
   return (
     <>

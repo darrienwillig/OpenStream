@@ -6,8 +6,7 @@ import styles from './feed.module.css';
 import Search from './Search.js';
 import Box from './Box.js';
 import axios from 'axios';
-import fakeVolume from '../../fakedata/fakeVolume';
-// import fakeData from '../../fakedata/fakeData';
+
 
 export default function Feed() {
   const { connector: activeConnector, isConnected, address } = useAccount();
@@ -15,7 +14,8 @@ export default function Feed() {
   const [currentCollections, setCurrentCollections] = useState([])
   const [currentFilter, setCurrentFilter] = useState('all');
   const [currentVolumes, setCurrentVolumes] = useState([]);
-  const [newCollection, setNewCollection] = useState(false)
+  const [newCollection, setNewCollection] = useState(false);
+  const [difference, setDifference] = useState(0);
 
   const handleChange = (e) => {
     setCurrentFilter(e.target.value)
@@ -76,7 +76,7 @@ export default function Feed() {
 
   useInterval(() => {
     getVolume()
-  }, 7000)
+  }, 100000)
 
   const getBuys = () => {
     let arr = [];
@@ -99,7 +99,11 @@ export default function Feed() {
         return yDate - xDate
       })
       if (test[0].hash !== buys[0].hash) {
-        setBuys(test.slice(0, 500))
+        let index = test.findIndex((el) => {
+          return el.hash === buys[0].hash;
+        })
+        setDifference(index);
+        setBuys(test.slice(0, 500));
       }
      })
      .catch((err) => console.log(err))
@@ -111,6 +115,7 @@ export default function Feed() {
      .get('http://localhost:3001/api/opensea/volume')
      .then((response) => {
       setCurrentVolumes(response.data)
+      window.localStorage.setItem('currentVolumes', response.data)
      })
      .catch((err) => console.log(err))
   }
@@ -141,8 +146,6 @@ export default function Feed() {
   }
 
   useEffect(() => {
-    if (window.localStorage.getItem('buys')) return;
-    console.log('hi')
    getCollections();
    getVolume();
   }, [])
@@ -153,28 +156,6 @@ export default function Feed() {
     setNewCollection(false);
   }, [newCollection])
 
-
-  // useEffect(() => {
-  //   if (!isConnected) return;
-  //     if (!window.localStorage.getItem('created')) {
-  //       createUser();
-  //     }
-  // }, [isConnected])
-
-  const createUser = () => {
-    let data = {
-      address: address
-    }
-    axios
-     .post('http://localhost:3001/api/opensea/create', data)
-     .then((resp) => {
-      console.log(resp)
-      window.localStorage.seItem('created', true)
-     })
-     .catch((error) => {
-       console.log(error);
-     })
-  }
 
   if (isConnected) {
     return (
@@ -187,7 +168,7 @@ export default function Feed() {
             <Search handleNewCollection={handleNewCollection}/>
           </div>
           <div className={styles.streambox}>
-            <Box  buys={buys} currentCollections={currentCollections} currentFilter={currentFilter} currentVolumes={currentVolumes} handleChange={handleChange} />
+            <Box  buys={buys} currentCollections={currentCollections} currentFilter={currentFilter} currentVolumes={currentVolumes || window.localStorage.getItem('currentVolumes')} handleChange={handleChange} difference={difference} />
           </div>
         </div>
       </>

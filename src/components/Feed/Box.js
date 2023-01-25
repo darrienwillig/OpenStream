@@ -4,49 +4,29 @@ import Card from './Card';
 import FilterBox from './FilterBox';
 import StatBox from './StatBox';
 import 'animate.css';
+import Delayed from './Delayed';
+import NewCard from './NewCard';
 
 
 
 
+export default function Box({buys, currentCollections, currentFilter, currentVolumes, handleChange, handleNewCollection, difference}) {
 
-
-
-export default function Box({buys, currentCollections, currentFilter, currentVolumes, handleChange, handleNewCollection}) {
-  const [oldCards, setOldCards] = useState(buys);
-  const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
   const [expandedData, setExpandedData] = useState([])
   const handleOpen = (event) => {
-    const filtered = oldCards.filter((item, index) => {
+    const filtered = buys.filter((item, index) => {
       return item.imgUrl === event.target.parentElement.firstChild.src
     })
     setExpandedData(filtered)
-    console.log(filtered)
     setOpen(true);
   };
   const handleClose = (e) => {
     if (e.target.nodeName !== "BUTTON") setOpen(false)
   };
 
-  const getDifference = () => {
-    if (window.localStorage.getItem('buys')) {
-    let totalDiff = buys.length - oldCards.length;
-    setTotal(totalDiff);
-    }
-    setOldCards(buys);
-    window.localStorage.setItem('buys', buys);
-  }
 
-  useEffect(() => {
-    getDifference();
-  }, [buys]);
-
-  useEffect(() => {
-    setTotal(0)
-  }, [currentFilter])
-
-
-  console.log(buys.length);
+  console.log(difference)
 
  //toAddress, itemLink, hash
   return (<>
@@ -73,24 +53,9 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
     <div className={styles.cardbox}>
       {
         currentFilter === 'all' &&
-        buys.map((item, index) => {
-          if (index < total) {
-            for (let i = 0; i< total; i++) {
-              return (
-                <Card
-                newcard={true}
-                key={index}
-                image={item.imgUrl}
-                price={item.price}
-                collection={item.name}
-                timestamp={item.time}
-                handleOpen={handleOpen}
-              />
-              )
-            }
-          }
+        buys.slice(0, difference).map((item, index) => {
           return (
-            <Card
+            <NewCard
               key={index}
               image={item.imgUrl}
               price={item.price}
@@ -99,6 +64,21 @@ export default function Box({buys, currentCollections, currentFilter, currentVol
               handleOpen={handleOpen}
             />
           )
+        })
+      } {
+        currentFilter === 'all' &&
+        buys.slice(difference).map((item, index) => {
+            return (
+              // <Delayed waitBeforeShow={50}>
+                <Card
+                  key={index}
+                  image={item.imgUrl}
+                  price={item.price}
+                  collection={item.name}
+                  timestamp={item.time}
+                  handleOpen={handleOpen}
+                />
+            )
         })
       }
       {

@@ -22,7 +22,7 @@ const myTheme = merge(lightTheme(), {
 
 const { chains, provider } = configureChains(
   [mainnet],
-  [infuraProvider({ apiKey: process.env.REACT_APP_RPC }), publicProvider()]
+  [infuraProvider({ apiKey: 'b093e68534f441cdb20ac9be258dae6b' }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

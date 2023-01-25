@@ -85,7 +85,6 @@ exports.addCollection = async (req, res, next) => {
       })
 
       osClient.onItemSold(`${nftCollection.collection.slug}`, async (event) => {
-        console.log(event)
         let data = {
           slug: event.payload.collection.slug,
           price: (Number(event.payload.sale_price) / 1e18).toLocaleString('en-us', {maximumFractionDigits: 2}),
@@ -152,9 +151,11 @@ exports.getVolume = async (req, res, next) => {
         floor: volumeData.collection.stats.floor_price
       }
       arr.push(data);
+      await sleep(5000);
     }
     return res.status(200).json(arr);
   } catch (e) {
+    console.log(e)
     return res.status(500).json({ message: e})
   }
 }
